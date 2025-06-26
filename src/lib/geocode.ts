@@ -40,13 +40,13 @@ export async function geocodeRecords(records: any[]) {
 
       try {
         if (
-          record.zohogooglemaps__latitude &&
-          record.zohogooglemaps__longitude
+          record.zohogooglemaps__Latitude0 &&
+          record.zohogooglemaps__Longitude0
         ) {
           return {
             ...record,
-            lat: record.zohogooglemaps__latitude,
-            lng: record.zohogooglemaps__longitude,
+            lat: record.zohogooglemaps__Latitude0,
+            lng: record.zohogooglemaps__Longitude0,
           };
         } else {
           // const { lat, lng }: any = await geocodeAddress(address);

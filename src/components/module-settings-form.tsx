@@ -9,6 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useAppContext } from "@/contexts/app-context";
+import { useDevelopmentContext } from "@/contexts/contexts";
 import { useZohoContext, ZohoContextType } from "@/contexts/zoho-context";
 import { useCreateRecord } from "@/hooks/create-record";
 import { useUpdateRecord } from "@/hooks/update-record";
@@ -34,6 +35,7 @@ export default function ModuleSettingsForm() {
   const { fields } = useStore();
   const { zoho } = useZohoContext() as ZohoContextType;
   const { settings } = useAppContext();
+  const { prod } = useDevelopmentContext();
   const createRecord = useCreateRecord();
   const updateRecord = useUpdateRecord();
   const [results, setResults] = useState<ResultType[]>([]);
@@ -48,7 +50,7 @@ export default function ModuleSettingsForm() {
   useEffect(() => {
     if (results.length > 0) {
       const initialValue: { key: string; value: string } = JSON.parse(
-        results?.[0]?.Value
+        results?.[0]?.[prod ? "zohogooglemaps__Value" : "Value"] ?? "{}"
       );
       Object.entries(initialValue).map(([key, value]) => {
         form.setValue(key as keyof SettingsSchema, value);
@@ -78,21 +80,23 @@ export default function ModuleSettingsForm() {
     try {
       if (results.length > 0) {
         const res = await updateRecord.mutateAsync({
-          module: "Map_Variables",
-          data: {
-            id: results?.[0]?.id,
-            Value: JSON.stringify(data),
-          },
+          Entity: prod ? "zohogooglemaps__Map_Variables" : "Map_Variables",
+          data: [
+            {
+              id: results?.[0]?.id,
+              [prod ? "zohogooglemaps__Value" : "Value"]: JSON.stringify(data),
+            },
+          ],
         });
         console.log("🚀 ~ handleSave ~ res:", res);
         toast.success(`${zoho?.Entity} settings updated sucessfully.`);
       } else {
         const res = await createRecord.mutateAsync({
-          Entity: "Map_Variables",
+          Entity: prod ? "zohogooglemaps__Map_Variables" : "Map_Variables",
           data: {
             Name: "Settings",
-            Entity: zoho?.Entity ?? "",
-            Value: JSON.stringify(data),
+            [prod ? "zohogooglemaps__Entity" : "Entity"]: zoho?.Entity ?? "",
+            [prod ? "zohogooglemaps__Value" : "Value"]: JSON.stringify(data),
           },
         });
         console.log("🚀 ~ handleSave ~ res:", res);
@@ -105,7 +109,7 @@ export default function ModuleSettingsForm() {
   };
 
   return (
-    <Card>
+    <Card className="max-h-[75vh] overflow-auto">
       <CardHeader>
         <CardTitle className="flex gap-1 items-center">
           <Package />

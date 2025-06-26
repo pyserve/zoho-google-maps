@@ -66,7 +66,7 @@ export function GeneralSettingsForm() {
   };
 
   return (
-    <Card>
+    <Card className="max-h-[75vh] overflow-auto">
       <CardHeader>
         <CardTitle className="flex gap-1 items-center">
           <Settings2 />
@@ -80,63 +80,59 @@ export function GeneralSettingsForm() {
       <CardContent className="grid gap-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid gap-6 py-4">
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="apiKey"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-1 items-center">
-                      <FormLabel>Maps API Key:</FormLabel>
-                      <FormControl>
-                        <Input type="text" {...field} />
-                      </FormControl>
-                      <FormMessage className="col-span-2 text-right" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="orgId"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-1 items-center">
-                      <FormLabel>Organization Id:</FormLabel>
-                      <FormControl>
-                        <Input type="text" {...field} placeholder="771781231" />
-                      </FormControl>
-                      <FormMessage className="col-span-2 text-right" />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="lat"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-1 items-center">
-                      <FormLabel>Default Latitude:</FormLabel>
-                      <FormControl>
-                        <Input type="text" {...field} />
-                      </FormControl>
-                      <FormMessage className="col-span-2 text-right" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lng"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-1 items-center">
-                      <FormLabel>Default Longitude:</FormLabel>
-                      <FormControl>
-                        <Input type="text" {...field} />
-                      </FormControl>
-                      <FormMessage className="col-span-2 text-right" />
-                    </FormItem>
-                  )}
-                />
-              </div>
+            <div className="grid grid-cols-1 gap-6 py-4">
+              <FormField
+                control={form.control}
+                name="apiKey"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-3 items-center">
+                    <FormLabel className="col-span-1">Maps API Key:</FormLabel>
+                    <FormControl className="col-span-2">
+                      <Input type="text" {...field} />
+                    </FormControl>
+                    <FormMessage className="col-span-2 text-right" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="orgId"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-3 items-center">
+                    <FormLabel className="col-span-1">Org Id:</FormLabel>
+                    <FormControl className="col-span-2">
+                      <Input type="text" {...field} placeholder="771781231" />
+                    </FormControl>
+                    <FormMessage className="col-span-2 text-right" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lat"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-3 items-center">
+                    <FormLabel className="col-span-1">Latitude:</FormLabel>
+                    <FormControl className="col-span-2">
+                      <Input type="text" {...field} />
+                    </FormControl>
+                    <FormMessage className="col-span-2 text-right" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lng"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-3 items-center">
+                    <FormLabel className="col-span-1">Longitude:</FormLabel>
+                    <FormControl className="col-span-2">
+                      <Input type="text" {...field} />
+                    </FormControl>
+                    <FormMessage className="col-span-2 text-right" />
+                  </FormItem>
+                )}
+              />
             </div>
             <DialogFooter>
               <Button disabled={form.formState.isSubmitting} type="submit">

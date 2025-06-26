@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useAppContext } from "@/contexts/app-context";
+import { useDevelopmentContext } from "@/contexts/contexts";
 import { useZohoContext } from "@/contexts/zoho-context";
 import { useStore } from "@/lib/store";
 import { DialogDescription } from "@radix-ui/react-dialog";
@@ -31,12 +32,15 @@ type CalendarView = "month" | "week" | "day" | "agenda";
 export const CalendarView = () => {
   const { zoho } = useZohoContext();
   const { settings } = useAppContext();
+  const { prod } = useDevelopmentContext();
   const [currentView, setCurrentView] = useState<CalendarView>(Views.MONTH);
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const { searchResults } = useStore();
   const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
 
-  const defaultValues = JSON.parse(settings?.[0]?.Value ?? {});
+  const defaultValues = JSON.parse(
+    settings?.[0]?.[prod ? "zohogooglemaps__Value" : "Value"] ?? "{}"
+  );
 
   const events: EventType[] = searchResults.data?.map((r) => ({
     id: r.id,

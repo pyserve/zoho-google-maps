@@ -10,6 +10,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useDevelopmentContext } from "./contexts";
 import { useZohoContext } from "./zoho-context";
 
 export interface AppContextType {
@@ -18,7 +19,7 @@ export interface AppContextType {
   settings: ResultType[];
 }
 
-export const AppContext = createContext<AppContextType | null>(null);
+const AppContext = createContext<AppContextType | null>(null);
 
 export default function AppContextProvider({
   children,
@@ -26,6 +27,7 @@ export default function AppContextProvider({
   children: ReactNode;
 }) {
   const { zoho } = useZohoContext();
+  const { prod } = useDevelopmentContext();
   const filterSearchRecords = useFilteredSearchRecords();
   const [filterColumns, setFilterColumns] = useState<ResultType[]>([]);
   const [contentColumns, setContentColumns] = useState<ResultType[]>([]);
@@ -39,10 +41,12 @@ export default function AppContextProvider({
       if (!zoho?.Entity) throw new Error("Zoho entity not found.");
       const results = await filterSearchRecords.mutateAsync({
         Entity: zoho?.Entity,
-        fields: ["Name", "Entity", "Value"],
+        fields: prod
+          ? ["Name", "zohogooglemaps__Entity", "zohogooglemaps__Value"]
+          : ["Name", "Entity", "Value"],
         col_name: col_name,
       });
-      setData(results);
+      setData(results ?? []);
     } catch (error) {
       throw new Error(error instanceof Error ? error.message : "Error");
     }

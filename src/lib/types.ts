@@ -95,4 +95,6 @@ export type ResultType = {
   Name: string;
   Value: string;
   Entity: string;
+  zohogooglemaps__Entity?: string;
+  zohogooglemaps__Value?: string;
 };

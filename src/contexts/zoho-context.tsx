@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import toast from "react-hot-toast";
+import { useDevelopmentContext } from "./contexts";
 
 declare global {
   interface Window {
@@ -63,6 +64,7 @@ export default function ZohoContextProvider({
 }) {
   const [zoho, setZoho] = useState<ZohoData | null>(null);
   const zohoRef = useRef<ZohoData | null>(zoho);
+  const { prod } = useDevelopmentContext();
 
   useEffect(() => {
     zohoRef.current = zoho;
@@ -144,7 +146,10 @@ export default function ZohoContextProvider({
           const results = JSON.parse(res1?.response);
           const variables = results?.variables?.filter(
             (res: { api_name: string }) =>
-              res.api_name === "zohogooglemaps_Zoho_Google_Map"
+              res.api_name ===
+              (prod
+                ? "zohogooglemaps__Zoho_Google_Map"
+                : "zohogooglemaps_Zoho_Google_Map")
           )?.[0];
 
           const orgVariable = JSON.parse(variables?.value);

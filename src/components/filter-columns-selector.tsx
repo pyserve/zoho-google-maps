@@ -6,6 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAppContext } from "@/contexts/app-context";
+import { useDevelopmentContext } from "@/contexts/contexts";
 import { useZohoContext } from "@/contexts/zoho-context";
 import { useCreateRecord } from "@/hooks/create-record";
 import { useUpdateRecord } from "@/hooks/update-record";
@@ -19,6 +20,7 @@ import { Input } from "./ui/input";
 
 export const FilterColumnsSelector = () => {
   const { zoho } = useZohoContext();
+  const { prod } = useDevelopmentContext();
   const { filterColumns: results } = useAppContext();
   const createRecord = useCreateRecord();
   const updateRecord = useUpdateRecord();
@@ -46,19 +48,25 @@ export const FilterColumnsSelector = () => {
   }, [showSearch]);
 
   useEffect(() => {
-    if (results) {
-      let columns = [];
-      if (results.length > 0) {
-        columns = JSON.parse(results?.[0]?.Value || "[]");
-      }
+    if (fields.length === 0) return;
+    try {
+      const columns = JSON.parse(
+        results?.[0]?.[prod ? "zohogooglemaps__Value" : "Value"] || "[]"
+      );
+
       setSelectedFilterColumns(
         fields.map((field) => ({
           api_name: field.api_name,
-          selected: columns.some((col: string) => col === field.api_name),
+          selected: columns.includes(field.api_name),
         }))
       );
+
+      setChanged(false);
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Error parsing filter columns"
+      );
     }
-    setChanged(false);
   }, [fields, results]);
 
   const handleSave = async () => {
@@ -70,21 +78,25 @@ export const FilterColumnsSelector = () => {
 
       if (results.length > 0) {
         const res = await updateRecord.mutateAsync({
-          module: "Map_Variables",
-          data: {
-            id: results?.[0]?.id,
-            Value: JSON.stringify(filterColumns),
-          },
+          Entity: prod ? "zohogooglemaps__Map_Variables" : "Map_Variables",
+          data: [
+            {
+              id: results?.[0]?.id,
+              [prod ? "zohogooglemaps__Value" : "Value"]:
+                JSON.stringify(filterColumns),
+            },
+          ],
         });
         console.log("🚀 ~ handleSave ~ res:", res);
         toast.success(`Filter settings updated sucessfully.`);
       } else {
         const res = await createRecord.mutateAsync({
-          Entity: "Map_Variables",
+          Entity: prod ? "zohogooglemaps__Map_Variables" : "Map_Variables",
           data: {
             Name: "Filter Columns",
-            Entity: zoho?.Entity ?? "",
-            Value: JSON.stringify(filterColumns),
+            [prod ? "zohogooglemaps__Entity" : "Entity"]: zoho?.Entity ?? "",
+            [prod ? "zohogooglemaps__Value" : "Value"]:
+              JSON.stringify(filterColumns),
           },
         });
         console.log("🚀 ~ handleSave ~ res:", res);

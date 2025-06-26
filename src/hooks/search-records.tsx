@@ -1,3 +1,4 @@
+import { useDevelopmentContext } from "@/contexts/contexts";
 import { buildQueryCondition } from "@/lib/query-builder";
 import { FilterType } from "@/lib/types";
 import { useMutation } from "@tanstack/react-query";
@@ -58,6 +59,7 @@ export const useSearchRecords = () => {
 };
 
 export const useFilteredSearchRecords = () => {
+  const { prod } = useDevelopmentContext();
   const searchRecords = useSearchRecords();
   return useMutation({
     mutationKey: ["filterSearchRecords"],
@@ -79,14 +81,14 @@ export const useFilteredSearchRecords = () => {
             },
             {
               selected: true,
-              api_name: "Entity",
+              api_name: prod ? "zohogooglemaps__Entity" : "Entity",
               operator: "equals",
               value: data?.Entity,
               data_type: "text",
               json_type: "string",
             },
           ],
-          Entity: "Map_Variables",
+          Entity: prod ? "zohogooglemaps__Map_Variables" : "Map_Variables",
           fields: data?.fields ?? [],
         });
         return results?.data;

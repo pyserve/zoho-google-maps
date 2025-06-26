@@ -15,7 +15,7 @@ export const useFetchFields = (data: { module: string }) =>
           const results = JSON.parse(res.response)?.fields;
           return results;
         }
-        throw new Error(JSON.stringify(JSON.parse(res.response)));
+        throw new Error(JSON.parse(res.response));
       } catch (error) {
         throw new Error(error instanceof Error ? error.message : "Error");
       }

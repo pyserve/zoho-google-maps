@@ -33,24 +33,12 @@ export default function OpenStreetMap() {
   const { zoho } = useZohoContext();
 
   const center = useMemo<[number, number]>(() => {
-    const coords = (searchResults?.data || [])
-      .filter((r) => r.lat && r.lng)
-      .map((r) => [Number(r.lat), Number(r.lng)]);
-
-    if (coords.length) {
-      const [lat, lng] = coords.reduce(
-        ([a, b], [c, d]) => [a + c, b + d],
-        [0, 0]
-      );
-      return [lat / coords.length, lng / coords.length];
-    }
-
     return zoho?.org?.lat && zoho?.org?.lng
       ? [Number(zoho.org.lat), Number(zoho.org.lng)]
       : [43.65107, -79.347015];
-  }, [searchResults, zoho]);
+  }, [zoho]);
 
-  const [zoomLevel, setZoomLevel] = useState(7);
+  const [zoomLevel, setZoomLevel] = useState(6);
 
   function MapEvents() {
     const map = useMapEvents({
