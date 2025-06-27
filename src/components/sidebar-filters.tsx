@@ -118,7 +118,7 @@ export default function SidebarFilters({ items }: { items: FieldData[] }) {
           "🚀 ~ missingLatLngRecords ~ missingLatLngRecords:",
           missingLatLngRecords
         );
-
+        if (!prod) return;
         const updatePromise = updateRecords.mutateAsync({
           data: missingLatLngRecords.map((record) => ({
             id: record.id,
