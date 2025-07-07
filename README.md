@@ -1,69 +1,65 @@
-# React + TypeScript + Vite
+# Zoho Google Maps Integration
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Project Banner](https://placehold.co/1200x400/2c3e50/ffffff?text=Zoho+Google+Maps)
 
-Currently, two official plugins are available:
+An open-source project to seamlessly integrate Google Maps functionality directly within the Zoho ecosystem. Visualize your CRM data, optimize routes, and enhance your geographical data analysis without leaving Zoho.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Instant Visualization**: Plot single or multiple addresses from Zoho modules (Contacts, Leads, Accounts) onto an interactive Google Map.
+- **Efficient Route Planning**: Select multiple contacts and generate an optimized multi-stop route.
+- **One-Click Navigation**: Send generated routes directly to Google Maps on your mobile device or browser for turn-by-turn directions.
+- **Data-Driven Insights**: Understand customer distribution and analyze sales territories visually.
+- **Seamless Integration**: Works as a native component within the Zoho interface for a smooth user experience.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Prerequisites
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- A Zoho account with administrative privileges.
+- A Google Cloud Platform account to generate a Google Maps API Key.
+- Node.js and npm installed on your local machine.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Installation & Setup
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1.  **Clone the Repository**
+
+    ```sh
+    git clone [https://github.com/](https://github.com/)[Your-GitHub-Username]/zoho-google-maps.git
+    cd zoho-google-maps
+    ```
+
+2.  **Install Dependencies**
+
+    ```sh
+    npm install
+    ```
+
+3.  **Configure Environment Variables**
+
+    - Create a `.env` file in the root of the project.
+    - Add your Zoho API credentials and your Google Maps API Key:
+      ```
+      ZOHO_CLIENT_ID=your_zoho_client_id
+      ZOHO_CLIENT_SECRET=your_zoho_client_secret
+      GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+      ```
+
+4.  **Run the Development Server**
+    ```sh
+    npm start
+    ```
+
+## 🤝 How to Contribute
+
+We welcome contributions from the community! Whether it's reporting a bug, suggesting a new feature, or submitting a pull request, your help is appreciated.
+
+Please read our [**Contributing Guidelines**](CONTRIBUTING.md) to learn how you can get involved.
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [**LICENSE.md**](LICENSE.md) file for details.
