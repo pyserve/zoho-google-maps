@@ -21,7 +21,6 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 - A Zoho account with administrative privileges.
-- A Google Cloud Platform account to generate a Google Maps API Key.
 - Node.js and npm installed on your local machine.
 
 ### Installation & Setup
