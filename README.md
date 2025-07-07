@@ -9,8 +9,6 @@ An open-source project to seamlessly integrate Google Maps functionality directl
 ## ✨ Key Features
 
 - **Instant Visualization**: Plot single or multiple addresses from Zoho modules (Contacts, Leads, Accounts) onto an interactive Google Map.
-- **Efficient Route Planning**: Select multiple contacts and generate an optimized multi-stop route.
-- **One-Click Navigation**: Send generated routes directly to Google Maps on your mobile device or browser for turn-by-turn directions.
 - **Data-Driven Insights**: Understand customer distribution and analyze sales territories visually.
 - **Seamless Integration**: Works as a native component within the Zoho interface for a smooth user experience.
 
