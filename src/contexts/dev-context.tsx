@@ -7,7 +7,7 @@ export default function DevelopmentContextProvider({
 }: {
   children: ReactNode;
 }) {
-  const [prod, setProd] = useState<boolean>(false);
+  const [prod, setProd] = useState<boolean>(true);
 
   return (
     <DevelopmentContext.Provider value={{ prod, setProd }}>
