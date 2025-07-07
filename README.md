@@ -29,7 +29,7 @@ These instructions will get you a copy of the project up and running on your loc
 1.  **Clone the Repository**
 
     ```sh
-    git clone [https://github.com/](https://github.com/)[Your-GitHub-Username]/zoho-google-maps.git
+    git clone [https://github.com/pyserve/zoho-google-maps.git]
     cd zoho-google-maps
     ```
 
@@ -39,17 +39,7 @@ These instructions will get you a copy of the project up and running on your loc
     npm install
     ```
 
-3.  **Configure Environment Variables**
-
-    - Create a `.env` file in the root of the project.
-    - Add your Zoho API credentials and your Google Maps API Key:
-      ```
-      ZOHO_CLIENT_ID=your_zoho_client_id
-      ZOHO_CLIENT_SECRET=your_zoho_client_secret
-      GOOGLE_MAPS_API_KEY=your_google_maps_api_key
-      ```
-
-4.  **Run the Development Server**
+3.  **Run the Development Server**
     ```sh
     npm start
     ```
